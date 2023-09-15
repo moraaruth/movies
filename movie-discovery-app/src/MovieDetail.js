@@ -4,7 +4,7 @@ import './MovieDetail.css';
 
 function MovieDetails() {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(true);
 
   function convertToUTCDate(releaseDate) {
@@ -36,7 +36,7 @@ function MovieDetails() {
         }
 
         const data = await response.json();
-        setMovie(data);
+        setMovies(data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movie details:", error);
@@ -53,15 +53,15 @@ function MovieDetails() {
       ) : (
         <div className="movie-details">
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
+            src={`https://image.tmdb.org/t/p/w500/${movies.poster_path}`}
+            alt={movies.title}
             className="movie-poster"
           />
           <div className="movie-info">
-            <h1 className="title">{movie.title}</h1>
-            <p className="release-date">Release Date: {convertToUTCDate(movie.release_date)}</p>
-            <p className="runtime">Runtime: {movie.runtime} minutes</p>
-            <p className="overview">{movie.overview}</p>
+            <h1 className="title">{movies.title}</h1>
+            <p className="release-date">Release Date: {convertToUTCDate(movies.release_date)}</p>
+            <p className="runtime">Runtime: {movies.runtime} minutes</p>
+            <p className="overview">{movies.overview}</p>
           </div>
         </div>
       )}
