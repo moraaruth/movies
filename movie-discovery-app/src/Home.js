@@ -35,7 +35,16 @@ function Home() {
     };
 
     function convertToUTCDate(releaseDate) {
+        if (!releaseDate) {
+            return "N/A";
+        }
+    
         const localDate = new Date(releaseDate);
+    
+        if (isNaN(localDate.getTime())) {
+            return "N/A";
+        }
+    
         const utcDate = new Date(
             localDate.getUTCFullYear(),
             localDate.getUTCMonth(),
@@ -44,12 +53,12 @@ function Home() {
             localDate.getUTCMinutes(),
             localDate.getUTCSeconds()
         );
-
+    
         const utcDateString = utcDate.toISOString().replace("T", " ").replace("Z", " UTC");
-
+    
         return utcDateString;
     }
-
+    
     useEffect(() => {
         async function fetchTopMovies() {
             try {
@@ -112,7 +121,7 @@ function Home() {
                             )
                         )}
                     </div>
-                
+               
 
                     <div className="movie-grid">
                         {loading ? (
